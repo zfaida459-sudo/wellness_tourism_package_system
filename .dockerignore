@@ -1,0 +1,9 @@
+**
+!requirements.txt
+!app.py
+!.streamlit/
+!.streamlit/config.toml
+!wellness_tourism/
+!wellness_tourism/__init__.py
+!wellness_tourism/schema.py
+!wellness_tourism/predict.py
