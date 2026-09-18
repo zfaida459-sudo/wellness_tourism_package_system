@@ -1,0 +1,306 @@
+{
+  "run_id": "20260918T113856Z-3834be7b",
+  "smoke": true,
+  "source_revision": "0a8e1249a8eee62ebc94cebfe264c13647bd827a",
+  "python": "3.12.8",
+  "versions": {
+    "numpy": "2.2.6",
+    "pandas": "2.2.3",
+    "scikit-learn": "1.6.1",
+    "xgboost": "3.0.2",
+    "joblib": "1.5.1"
+  },
+  "config": {
+    "data_path": "data/tourism.csv",
+    "prepared_dir": "data",
+    "artifacts_dir": "artifacts/runs",
+    "seed": 42,
+    "cv_folds": 3,
+    "random_forest_grid": {
+      "model__n_estimators": [
+        150
+      ],
+      "model__max_depth": [
+        8,
+        null
+      ],
+      "model__min_samples_leaf": [
+        1,
+        3
+      ],
+      "model__class_weight": [
+        null,
+        "balanced"
+      ]
+    },
+    "xgboost_grid": {
+      "model__n_estimators": [
+        150,
+        300
+      ],
+      "model__max_depth": [
+        3,
+        5
+      ],
+      "model__learning_rate": [
+        0.05,
+        0.1
+      ]
+    }
+  },
+  "data": {
+    "source_file": "data/tourism.csv",
+    "source_sha256": "3173923f1baad22ab115b7367713663f92a49d488411c1190180932b1a58bba3",
+    "source_revision": "0a8e1249a8eee62ebc94cebfe264c13647bd827a",
+    "rows_raw": 4128,
+    "rows_clean": 4011,
+    "duplicates_removed": 117,
+    "independent_groups": 4011,
+    "missing_values": {
+      "Age": 0,
+      "CityTier": 0,
+      "Occupation": 0,
+      "Gender": 0,
+      "NumberOfPersonVisiting": 0,
+      "PreferredPropertyStar": 0,
+      "MaritalStatus": 0,
+      "NumberOfTrips": 0,
+      "Passport": 0,
+      "OwnCar": 0,
+      "NumberOfChildrenVisiting": 0,
+      "Designation": 0,
+      "MonthlyIncome": 0,
+      "TypeofContact": 0,
+      "DurationOfPitch": 0,
+      "NumberOfFollowups": 0,
+      "ProductPitched": 0,
+      "PitchSatisfactionScore": 0
+    },
+    "purchase_rate": 0.19296933433059088,
+    "features": {
+      "pre_contact": [
+        "Age",
+        "CityTier",
+        "Occupation",
+        "Gender",
+        "NumberOfPersonVisiting",
+        "PreferredPropertyStar",
+        "MaritalStatus",
+        "NumberOfTrips",
+        "Passport",
+        "OwnCar",
+        "NumberOfChildrenVisiting",
+        "Designation",
+        "MonthlyIncome"
+      ],
+      "post_interaction": [
+        "Age",
+        "CityTier",
+        "Occupation",
+        "Gender",
+        "NumberOfPersonVisiting",
+        "PreferredPropertyStar",
+        "MaritalStatus",
+        "NumberOfTrips",
+        "Passport",
+        "OwnCar",
+        "NumberOfChildrenVisiting",
+        "Designation",
+        "MonthlyIncome",
+        "TypeofContact",
+        "DurationOfPitch",
+        "NumberOfFollowups",
+        "ProductPitched",
+        "PitchSatisfactionScore"
+      ]
+    },
+    "source_note": "User-provided course dataset; verify original redistribution terms before publishing.",
+    "files": {
+      "train.csv": "5f20973f564d374dcdd3314a54f1b4f27772c4f7fb01fa3a1ca7dea8b306f537",
+      "test.csv": "8b0a8bdc3df56225a898c41feb8cad39d74e2bfaf54455b7ce71a22da4e0e45f",
+      "splits.json": "63b2ae6e2fc044062c777227fe6da4151bf076ae0f8df8c2a4aad6cadca4d901"
+    },
+    "rows_train": 3208,
+    "rows_test": 803
+  },
+  "stages": {
+    "pre_contact": {
+      "algorithm": "xgboost",
+      "best_params": {
+        "model__max_depth": 3,
+        "model__n_estimators": 10
+      },
+      "cv_average_precision": 0.5448399855863281,
+      "threshold": 0.3212575316429138,
+      "metrics": {
+        "train": {
+          "accuracy": 0.8599334995843724,
+          "precision": 0.6473551637279596,
+          "recall": 0.566079295154185,
+          "f1": 0.6039952996474736,
+          "roc_auc": 0.8492193706217954,
+          "average_precision": 0.6555561703782562,
+          "confusion_matrix": [
+            [
+              1812,
+              140
+            ],
+            [
+              197,
+              257
+            ]
+          ]
+        },
+        "validation": {
+          "accuracy": 0.844139650872818,
+          "precision": 0.6846153846153846,
+          "recall": 0.5144508670520231,
+          "f1": 0.5874587458745875,
+          "roc_auc": 0.7998060964738966,
+          "average_precision": 0.6292644431077837,
+          "confusion_matrix": [
+            [
+              588,
+              41
+            ],
+            [
+              84,
+              89
+            ]
+          ]
+        },
+        "test": {
+          "accuracy": 0.838107098381071,
+          "precision": 0.5669291338582677,
+          "recall": 0.4897959183673469,
+          "f1": 0.5255474452554745,
+          "roc_auc": 0.8062054089928655,
+          "average_precision": 0.5806259025143489,
+          "confusion_matrix": [
+            [
+              601,
+              55
+            ],
+            [
+              75,
+              72
+            ]
+          ]
+        },
+        "dummy_validation": {
+          "accuracy": 0.21571072319201995,
+          "precision": 0.21571072319201995,
+          "recall": 1.0,
+          "f1": 0.3548717948717949,
+          "roc_auc": 0.5,
+          "average_precision": 0.21571072319201995,
+          "confusion_matrix": [
+            [
+              0,
+              629
+            ],
+            [
+              0,
+              173
+            ]
+          ]
+        }
+      },
+      "passed_gate": true,
+      "mlflow_run_id": "41d131dd6e2940288860df89f13766df"
+    },
+    "post_interaction": {
+      "algorithm": "xgboost",
+      "best_params": {
+        "model__max_depth": 3,
+        "model__n_estimators": 10
+      },
+      "cv_average_precision": 0.5684979786942675,
+      "threshold": 0.3146762549877167,
+      "metrics": {
+        "train": {
+          "accuracy": 0.8740648379052369,
+          "precision": 0.6855036855036855,
+          "recall": 0.6145374449339207,
+          "f1": 0.6480836236933798,
+          "roc_auc": 0.8670819942947932,
+          "average_precision": 0.6933408261176979,
+          "confusion_matrix": [
+            [
+              1824,
+              128
+            ],
+            [
+              175,
+              279
+            ]
+          ]
+        },
+        "validation": {
+          "accuracy": 0.85785536159601,
+          "precision": 0.7251908396946565,
+          "recall": 0.5491329479768786,
+          "f1": 0.625,
+          "roc_auc": 0.8049615409356994,
+          "average_precision": 0.6552226854825376,
+          "confusion_matrix": [
+            [
+              593,
+              36
+            ],
+            [
+              78,
+              95
+            ]
+          ]
+        },
+        "test": {
+          "accuracy": 0.8505603985056039,
+          "precision": 0.6,
+          "recall": 0.5510204081632653,
+          "f1": 0.574468085106383,
+          "roc_auc": 0.8243840219014436,
+          "average_precision": 0.6260216703734569,
+          "confusion_matrix": [
+            [
+              602,
+              54
+            ],
+            [
+              66,
+              81
+            ]
+          ]
+        },
+        "dummy_validation": {
+          "accuracy": 0.21571072319201995,
+          "precision": 0.21571072319201995,
+          "recall": 1.0,
+          "f1": 0.3548717948717949,
+          "roc_auc": 0.5,
+          "average_precision": 0.21571072319201995,
+          "confusion_matrix": [
+            [
+              0,
+              629
+            ],
+            [
+              0,
+              173
+            ]
+          ]
+        }
+      },
+      "passed_gate": true,
+      "mlflow_run_id": "714b25bd22c14d5d995353bc3f00f39a"
+    }
+  },
+  "limitations": [
+    "Historical tourism purchases are a proxy, not verified wellness-package outcomes.",
+    "No timestamps establish whether interaction fields were measured before purchase.",
+    "Travel preferences are assumed available in customer profiles before contact.",
+    "Estimated model probabilities are not guaranteed calibrated probabilities."
+  ],
+  "mlflow_run_id": "912d47c6fb6a4bd684ee853f7d8cb103",
+  "passed_gate": true
+}

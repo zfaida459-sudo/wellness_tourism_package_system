@@ -1,0 +1,1 @@
+"""Training and serving contracts for wellness tourism purchase prediction."""
