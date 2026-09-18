@@ -1,0 +1,37 @@
+artifact_path: pipeline
+flavors:
+  python_function:
+    code: code
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.12.8
+  sklearn:
+    code: code
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.6.1
+is_signature_from_type_hint: false
+mlflow_version: 2.22.0
+model_size_bytes: 41370
+model_uuid: e9ae0cddbbfb461aa100e6231583a1f7
+prompts: null
+run_id: 41d131dd6e2940288860df89f13766df
+signature:
+  inputs: '[{"type": "double", "name": "Age", "required": false}, {"type": "double",
+    "name": "CityTier", "required": false}, {"type": "string", "name": "Occupation",
+    "required": false}, {"type": "string", "name": "Gender", "required": false}, {"type":
+    "double", "name": "NumberOfPersonVisiting", "required": false}, {"type": "double",
+    "name": "PreferredPropertyStar", "required": false}, {"type": "string", "name":
+    "MaritalStatus", "required": false}, {"type": "double", "name": "NumberOfTrips",
+    "required": false}, {"type": "double", "name": "Passport", "required": false},
+    {"type": "double", "name": "OwnCar", "required": false}, {"type": "double", "name":
+    "NumberOfChildrenVisiting", "required": false}, {"type": "string", "name": "Designation",
+    "required": false}, {"type": "double", "name": "MonthlyIncome", "required": false}]'
+  outputs: null
+  params: null
+type_hint_from_example: false
+utc_time_created: '2026-09-18 11:39:01.315486'

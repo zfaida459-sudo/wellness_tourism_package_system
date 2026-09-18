@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "release": "model-20260918T113856Z-3834be7b",
+  "versions": {
+    "numpy": "2.2.6",
+    "pandas": "2.2.3",
+    "scikit-learn": "1.6.1",
+    "xgboost": "3.0.2",
+    "joblib": "1.5.1"
+  },
+  "smoke": true,
+  "models": {
+    "pre_contact": {
+      "path": "F:/kanji_projects/2025/21. Zeena/wellness_tourism_package_system/wellness_tourism_package_system/artifacts/runs/20260918T113856Z-3834be7b/pre_contact.joblib",
+      "asset": "pre_contact.joblib",
+      "sha256": "370f546911b5d1fcd436199560bdd10aff33d54dcc5b3e72b337199992f1245c",
+      "features": [
+        "Age",
+        "CityTier",
+        "Occupation",
+        "Gender",
+        "NumberOfPersonVisiting",
+        "PreferredPropertyStar",
+        "MaritalStatus",
+        "NumberOfTrips",
+        "Passport",
+        "OwnCar",
+        "NumberOfChildrenVisiting",
+        "Designation",
+        "MonthlyIncome"
+      ],
+      "threshold": 0.3212575316429138,
+      "algorithm": "xgboost",
+      "test_metrics": {
+        "accuracy": 0.838107098381071,
+        "precision": 0.5669291338582677,
+        "recall": 0.4897959183673469,
+        "f1": 0.5255474452554745,
+        "roc_auc": 0.8062054089928655,
+        "average_precision": 0.5806259025143489,
+        "confusion_matrix": [
+          [
+            601,
+            55
+          ],
+          [
+            75,
+            72
+          ]
+        ]
+      }
+    },
+    "post_interaction": {
+      "path": "F:/kanji_projects/2025/21. Zeena/wellness_tourism_package_system/wellness_tourism_package_system/artifacts/runs/20260918T113856Z-3834be7b/post_interaction.joblib",
+      "asset": "post_interaction.joblib",
+      "sha256": "b43d10698c21b34d0de78670d33d0958cefb8582e2acab2f75e39e0f3fe2bbc2",
+      "features": [
+        "Age",
+        "CityTier",
+        "Occupation",
+        "Gender",
+        "NumberOfPersonVisiting",
+        "PreferredPropertyStar",
+        "MaritalStatus",
+        "NumberOfTrips",
+        "Passport",
+        "OwnCar",
+        "NumberOfChildrenVisiting",
+        "Designation",
+        "MonthlyIncome",
+        "TypeofContact",
+        "DurationOfPitch",
+        "NumberOfFollowups",
+        "ProductPitched",
+        "PitchSatisfactionScore"
+      ],
+      "threshold": 0.3146762549877167,
+      "algorithm": "xgboost",
+      "test_metrics": {
+        "accuracy": 0.8505603985056039,
+        "precision": 0.6,
+        "recall": 0.5510204081632653,
+        "f1": 0.574468085106383,
+        "roc_auc": 0.8243840219014436,
+        "average_precision": 0.6260216703734569,
+        "confusion_matrix": [
+          [
+            602,
+            54
+          ],
+          [
+            66,
+            81
+          ]
+        ]
+      }
+    }
+  },
+  "passed_gate": true
+}
