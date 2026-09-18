@@ -1,0 +1,102 @@
+name: Wellness tourism MLOps
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+    paths:
+      - 'wellness_tourism/**'
+      - 'scripts/**'
+      - 'tests/**'
+      - 'app.py'
+      - '.streamlit/config.toml'
+      - 'config.json'
+      - 'requirements*.txt'
+      - 'pyproject.toml'
+      - 'data/tourism.csv'
+      - 'data_analysis.ipynb'
+      - 'Dockerfile'
+      - '.dockerignore'
+      - '.github/workflows/pipeline.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wellness-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  checks:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Install dependencies
+        run: python -m pip install -r requirements-dev.txt -e .
+      - name: Lint
+        run: python -m ruff check wellness_tourism app.py scripts tests
+      - name: Unit and app tests
+        run: python -m pytest -q
+      - name: Validate data registration and prepare splits
+        run: python -m wellness_tourism.data --config config.json
+      - name: Training smoke test
+        if: runner.os == 'Linux'
+        run: python -m wellness_tourism.train --config config.json --smoke
+
+  train:
+    needs: checks
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Install training dependencies
+        run: python -m pip install -r requirements-dev.txt -e .
+      - name: Register source snapshot and prepare data
+        run: python -m wellness_tourism.data --config config.json
+      - name: Tune, evaluate, track and export both models
+        run: python -m wellness_tourism.train --config config.json
+      - name: Install notebook kernel
+        run: python -m ipykernel install --user --name wellness-tourism
+      - name: Execute submission notebook
+        run: python -m nbconvert --to notebook --execute --inplace data_analysis.ipynb --ExecutePreprocessor.kernel_name=wellness-tourism --ExecutePreprocessor.timeout=600
+      - name: Verify trained app models
+        run: python -m scripts.verify_release
+      - name: Build portable deployment image
+        run: docker build -t wellness-tourism .
+      - name: Container inference smoke test
+        shell: bash
+        run: |
+          docker run --rm -v "$PWD:/workspace:ro" -w /workspace wellness-tourism python -m scripts.verify_release --container
+      - name: Preview publishing allowlist
+        run: python scripts/deploy.py --dry-run
+      - name: Register GitHub Release and publish validated branches
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python scripts/deploy.py --publish
+      - name: Retain evaluation and notebook evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evaluation-${{ github.run_id }}
+          path: |
+            artifacts/runs/
+            data/manifest.json
+            data_analysis.ipynb
+          retention-days: 30
