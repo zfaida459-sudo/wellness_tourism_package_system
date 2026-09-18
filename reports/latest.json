@@ -1,0 +1,310 @@
+{
+  "run_id": "20260918T143255Z-f744dfc6",
+  "smoke": false,
+  "source_revision": "db0987ae2b98699bae066ffb692daf3f6a428e26",
+  "python": "3.12.14",
+  "versions": {
+    "numpy": "2.2.6",
+    "pandas": "2.2.3",
+    "scikit-learn": "1.6.1",
+    "xgboost": "3.0.2",
+    "joblib": "1.5.1"
+  },
+  "config": {
+    "data_path": "data/tourism.csv",
+    "prepared_dir": "data",
+    "artifacts_dir": "artifacts/runs",
+    "seed": 42,
+    "cv_folds": 3,
+    "random_forest_grid": {
+      "model__n_estimators": [
+        150
+      ],
+      "model__max_depth": [
+        8,
+        null
+      ],
+      "model__min_samples_leaf": [
+        1,
+        3
+      ],
+      "model__class_weight": [
+        null,
+        "balanced"
+      ]
+    },
+    "xgboost_grid": {
+      "model__n_estimators": [
+        150,
+        300
+      ],
+      "model__max_depth": [
+        3,
+        5
+      ],
+      "model__learning_rate": [
+        0.05,
+        0.1
+      ]
+    }
+  },
+  "data": {
+    "source_file": "data/tourism.csv",
+    "source_sha256": "3173923f1baad22ab115b7367713663f92a49d488411c1190180932b1a58bba3",
+    "source_revision": "db0987ae2b98699bae066ffb692daf3f6a428e26",
+    "rows_raw": 4128,
+    "rows_clean": 4011,
+    "duplicates_removed": 117,
+    "independent_groups": 4011,
+    "missing_values": {
+      "Age": 0,
+      "CityTier": 0,
+      "Occupation": 0,
+      "Gender": 0,
+      "NumberOfPersonVisiting": 0,
+      "PreferredPropertyStar": 0,
+      "MaritalStatus": 0,
+      "NumberOfTrips": 0,
+      "Passport": 0,
+      "OwnCar": 0,
+      "NumberOfChildrenVisiting": 0,
+      "Designation": 0,
+      "MonthlyIncome": 0,
+      "TypeofContact": 0,
+      "DurationOfPitch": 0,
+      "NumberOfFollowups": 0,
+      "ProductPitched": 0,
+      "PitchSatisfactionScore": 0
+    },
+    "purchase_rate": 0.19296933433059088,
+    "features": {
+      "pre_contact": [
+        "Age",
+        "CityTier",
+        "Occupation",
+        "Gender",
+        "NumberOfPersonVisiting",
+        "PreferredPropertyStar",
+        "MaritalStatus",
+        "NumberOfTrips",
+        "Passport",
+        "OwnCar",
+        "NumberOfChildrenVisiting",
+        "Designation",
+        "MonthlyIncome"
+      ],
+      "post_interaction": [
+        "Age",
+        "CityTier",
+        "Occupation",
+        "Gender",
+        "NumberOfPersonVisiting",
+        "PreferredPropertyStar",
+        "MaritalStatus",
+        "NumberOfTrips",
+        "Passport",
+        "OwnCar",
+        "NumberOfChildrenVisiting",
+        "Designation",
+        "MonthlyIncome",
+        "TypeofContact",
+        "DurationOfPitch",
+        "NumberOfFollowups",
+        "ProductPitched",
+        "PitchSatisfactionScore"
+      ]
+    },
+    "source_note": "User-provided course dataset; verify original redistribution terms before publishing.",
+    "files": {
+      "train.csv": "b1c284d1768156aa8d6808919bb3afe469693bcba71e4af29b3456be3c0b7451",
+      "test.csv": "7bd60476038ac6732bd08a8ffebfc12475c68a0dc0af7034708ce3f7fb860d2c",
+      "splits.json": "5432faaa546fcb621e99e279ca19ead50f3add5083319dd388305a50eb2098aa"
+    },
+    "rows_train": 3208,
+    "rows_test": 803
+  },
+  "stages": {
+    "pre_contact": {
+      "algorithm": "random_forest",
+      "best_params": {
+        "model__class_weight": null,
+        "model__max_depth": null,
+        "model__min_samples_leaf": 1,
+        "model__n_estimators": 150
+      },
+      "cv_average_precision": 0.6364273369689925,
+      "threshold": 0.32,
+      "metrics": {
+        "train": {
+          "accuracy": 0.999168744804655,
+          "precision": 0.9956140350877193,
+          "recall": 1.0,
+          "f1": 0.9978021978021978,
+          "roc_auc": 1.0,
+          "average_precision": 1.0,
+          "confusion_matrix": [
+            [
+              1950,
+              2
+            ],
+            [
+              0,
+              454
+            ]
+          ]
+        },
+        "validation": {
+          "accuracy": 0.8827930174563591,
+          "precision": 0.7484276729559748,
+          "recall": 0.6878612716763006,
+          "f1": 0.7168674698795181,
+          "roc_auc": 0.9144756793515718,
+          "average_precision": 0.7833909625174538,
+          "confusion_matrix": [
+            [
+              589,
+              40
+            ],
+            [
+              54,
+              119
+            ]
+          ]
+        },
+        "test": {
+          "accuracy": 0.8941469489414695,
+          "precision": 0.6987179487179487,
+          "recall": 0.7414965986394558,
+          "f1": 0.7194719471947195,
+          "roc_auc": 0.9183206819313091,
+          "average_precision": 0.7682327652092139,
+          "confusion_matrix": [
+            [
+              609,
+              47
+            ],
+            [
+              38,
+              109
+            ]
+          ]
+        },
+        "dummy_validation": {
+          "accuracy": 0.21571072319201995,
+          "precision": 0.21571072319201995,
+          "recall": 1.0,
+          "f1": 0.3548717948717949,
+          "roc_auc": 0.5,
+          "average_precision": 0.21571072319201995,
+          "confusion_matrix": [
+            [
+              0,
+              629
+            ],
+            [
+              0,
+              173
+            ]
+          ]
+        }
+      },
+      "passed_gate": true,
+      "mlflow_run_id": "4d6b5a97668e4f27b546c3a9c1cd8551"
+    },
+    "post_interaction": {
+      "algorithm": "random_forest",
+      "best_params": {
+        "model__class_weight": null,
+        "model__max_depth": null,
+        "model__min_samples_leaf": 1,
+        "model__n_estimators": 150
+      },
+      "cv_average_precision": 0.7505791463768682,
+      "threshold": 0.28,
+      "metrics": {
+        "train": {
+          "accuracy": 0.999168744804655,
+          "precision": 0.9956140350877193,
+          "recall": 1.0,
+          "f1": 0.9978021978021978,
+          "roc_auc": 1.0,
+          "average_precision": 1.0,
+          "confusion_matrix": [
+            [
+              1950,
+              2
+            ],
+            [
+              0,
+              454
+            ]
+          ]
+        },
+        "validation": {
+          "accuracy": 0.9102244389027432,
+          "precision": 0.7537688442211056,
+          "recall": 0.8670520231213873,
+          "f1": 0.8064516129032258,
+          "roc_auc": 0.9513495134032366,
+          "average_precision": 0.8723827120624142,
+          "confusion_matrix": [
+            [
+              580,
+              49
+            ],
+            [
+              23,
+              150
+            ]
+          ]
+        },
+        "test": {
+          "accuracy": 0.8991282689912827,
+          "precision": 0.6813186813186813,
+          "recall": 0.8435374149659864,
+          "f1": 0.7537993920972644,
+          "roc_auc": 0.9528476024556164,
+          "average_precision": 0.8605151747137854,
+          "confusion_matrix": [
+            [
+              598,
+              58
+            ],
+            [
+              23,
+              124
+            ]
+          ]
+        },
+        "dummy_validation": {
+          "accuracy": 0.21571072319201995,
+          "precision": 0.21571072319201995,
+          "recall": 1.0,
+          "f1": 0.3548717948717949,
+          "roc_auc": 0.5,
+          "average_precision": 0.21571072319201995,
+          "confusion_matrix": [
+            [
+              0,
+              629
+            ],
+            [
+              0,
+              173
+            ]
+          ]
+        }
+      },
+      "passed_gate": true,
+      "mlflow_run_id": "54e12af370a04d41af6fe283dd523048"
+    }
+  },
+  "limitations": [
+    "Historical tourism purchases are a proxy, not verified wellness-package outcomes.",
+    "No timestamps establish whether interaction fields were measured before purchase.",
+    "Travel preferences are assumed available in customer profiles before contact.",
+    "Estimated model probabilities are not guaranteed calibrated probabilities."
+  ],
+  "mlflow_run_id": "1936212680d84504b20474d57932219a",
+  "passed_gate": true
+}
