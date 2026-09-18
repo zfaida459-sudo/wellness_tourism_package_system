@@ -10,7 +10,7 @@ __pycache__/
 .env.*
 .streamlit/secrets.toml
 artifacts/
-models/registry.json
+# models/registry.json
 mlruns/
 mlflow.db*
 .model-cache/
