@@ -69,7 +69,9 @@ class GitHub:
                                      "X-GitHub-Api-Version": "2022-11-28"})
 
     def request(self, method, endpoint, allow_missing=False, **kwargs):
-        url = f"https://api.github.com/repos/{self.repository}/{endpoint}"
+        base_url = f"https://api.github.com/repos/{self.repository}"
+        url = f"{base_url}/{endpoint.lstrip('/')}" if endpoint else base_url
+        
         response = self.session.request(method, url, timeout=(10, 120), **kwargs)
         if allow_missing and response.status_code == 404:
             return None
